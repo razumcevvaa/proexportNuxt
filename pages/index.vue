@@ -209,6 +209,10 @@
 
 <script setup lang="ts">
 
+useHead({
+  htmlAttrs: {lang:'ru'}
+})
+
 useSeoMeta({
   title: 'Международная компания по импорту/экспорту оборудования - PROEXPORT',
   ogTitle: 'Международная компания по импорту/экспорту оборудования - PROEXPORT',

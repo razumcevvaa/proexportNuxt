@@ -212,6 +212,9 @@
 </template>
 
 <script setup lang="ts">
+useHead({
+  htmlAttrs: { lang: 'tr' }
+})
 
 useSeoMeta({
   title: 'Uluslararası İthalat/İhracat Şirketi - PROEXPORT',

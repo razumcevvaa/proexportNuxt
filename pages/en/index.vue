@@ -215,6 +215,9 @@
 </template>
 
 <script setup lang="ts">
+useHead({
+  htmlAttrs: { lang: 'en' }
+})
 
 useSeoMeta({
   title: 'International equipment import/export company - PROEXPORT',
