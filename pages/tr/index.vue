@@ -166,13 +166,13 @@
     <h2 class="page-title2 title-bold">ULUSLARARASI ORGANIZASYON <br> ORANSPOR MALZEMELERI</h2>
     <p class="grey-discrip">İşletmeniz için basit ve şeffaf iş akışı. Dolar, ruble, euro, yuan, dirhem olarak
       çalışıyoruz.</p>
-    <form class="form-for-contact">
-      <input type="text" name="name" id="name" required placeholder="Adı" />
-      <input type="tel" name="phone" id="phone"
-        placeholder="+90 544 584 37 71" required>
-      <input type="email" name="email" id="email" required placeholder="Posta" />
+    <form v-if="!send" class="form-for-contact" method="POST" @submit.prevent="submit">
+      <input type="text" name="name" id="name" v-model="name" required placeholder="Adı" />
+      <input type="tel" name="phone" id="phone" v-model="phone" placeholder="+90 544 584 37 71" required>
+      <input type="email" name="email" id="email" v-model="mail" required placeholder="Posta" />
       <input class="button-sub" type="submit" value="Bize ulaşın">
     </form>
+    <h2 v-else class="page-title2 title-bold">En kısa zamanda sizinle iletişime geçeceğiz</h2>
   </section>
   <footer>
     <div class="footer-logo">
@@ -204,14 +204,16 @@
       <div class="social-net">
         <a href="https://wa.me/905445843771?"><img src="/whatsappl.png" alt="whatsApp"></a>
         <a href="https://msngr.link/wc/Halcion"><img src="/WeChat.png" alt="WeChat"></a>
-        <a href="https://signal.me/#eu/MDousj9L_MHGdMykKH0blyXanBS0OIL8d_6PEE7H3hZLIRkPE9ZAMIs3svCUxUXu"><img
-            src="/Signal.png" alt=""></a>
+        <a href="https://signal.me/#eu/MDousj9L_MHGdMykKH0blyXanBS0OIL8d_6PEE7H3hZLIRkPE9ZAMIs3svCUxUXu"><img src="/Signal.png" alt=""></a>
       </div>
     </div>
   </footer>
 </template>
 
 <script setup lang="ts">
+useHead({
+  htmlAttrs: { lang: 'tr' }
+})
 
 useSeoMeta({
   title: 'Uluslararası İthalat/İhracat Şirketi - PROEXPORT',
@@ -221,6 +223,28 @@ useSeoMeta({
   ogImage: 'http://proexport.tr/main-truck.JPEG',
   twitterCard: 'summary_large_image',
 })
+
+const send = ref(false)
+const name = ref('')
+const phone = ref('')
+const mail = ref('')
+
+const submit = async (e:Event) => {
+  e.preventDefault()
+  const data = new FormData()
+  data.append('name', name.value)
+  data.append('phone', phone.value)
+  data.append('mail', mail.value)
+  let response = await fetch('/mail.php', {
+    method: 'POST',
+    body: data
+  })
+  if (response.status == 200) {
+    send.value = true
+    // const postData = await response.json()
+    // console.log(postData)
+  }
+}
 
 onMounted(() => {
   const menu = document.querySelector('.nav-item')
