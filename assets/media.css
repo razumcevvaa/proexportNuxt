@@ -128,7 +128,7 @@
   .advantage-item p,
   .consept-item p,
   .our-project p {
-    font-size: 15px;
+    font-size: 17px;
   }
 
   .back-foto p,
@@ -164,7 +164,8 @@
   .advantage-item p,
   .consept-item p,
   .our-project p {
-    font-size: 15px;
+    font-size: 17px;
+    color: rgb(32 32 32);
   }
 
   .back-foto p,
@@ -217,7 +218,7 @@
   .page-title {
     font-size: 25px;
     line-height: 35px;
-    text-align: justify;
+    text-align: center;
   }
 
   .description-title {
@@ -257,6 +258,11 @@
     height: 5px;
     width: 40px;
   }
+
+  .menu {
+    margin-top: 94px;
+  }
+
 
   .form {
     height: 100%;
@@ -310,7 +316,7 @@
     display: block;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 10px;
     background: #A38558;
     background: linear-gradient(to right, #A38558 0%, #CEB279 8%, #FCF8B5 60%, #A38558 100%);
     -webkit-background-clip: text;

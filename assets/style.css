@@ -1,18 +1,18 @@
 @font-face {
   font-family: Montserrat Alternates;
-  src: url(/Montserrat_Alternates/MontserratAlternates-ExtraLight.ttf)
+  src: url(/Montserrat_Alternates/MontserratAlternates-ExtraLight.ttf);
+  font-display: swap;
 }
 
 @font-face {
   font-family: Montserrat Alternates Bold;
-  src: url(/Montserrat_Alternates/MontserratAlternates-SemiBold.ttf)
+  src: url(/Montserrat_Alternates/MontserratAlternates-SemiBold.ttf);
+  font-display: swap;
 }
 
 body {
   font-family: Montserrat Alternates;
 }
-
-
 
 * {
   margin: 0;
@@ -526,11 +526,11 @@ footer {
 }
 
 .lang-ru {
-  background: url('http://icons.iconarchive.com/icons/custom-icon-design/flag-3/16/Russia-Flag-icon.png') no-repeat left 5px center;
+  background: url('/RussiaFlag.png') no-repeat left 5px center;
 }
 
 .lang-en {
-  background: url('https://icons.iconarchive.com/icons/fatcow/farm-fresh/16/flag-usa-icon.png') no-repeat left 5px center;
+  background: url('flagUsa.png') no-repeat left 5px center;
 }
 
 .lang-tr {

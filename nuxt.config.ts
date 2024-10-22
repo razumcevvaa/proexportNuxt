@@ -7,7 +7,7 @@ export default defineNuxtConfig({
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
       link: [
-        { rel: 'icon', href: 'http://proexport.tr/favicon.ico' }
+        { rel: 'icon', href: 'https://proexport.tr/favicon.ico' }
       ],
     }
   },
