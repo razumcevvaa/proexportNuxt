@@ -163,13 +163,13 @@
     <h2 class="page-title2 title-bold">Организация международных <br> поставок с PROEXPORT</h2>
     <p class="grey-discrip">Простая и прозрачная схема работы для вашего бизнеса. Работаем в долларах, рублях, евро,
       юанях, дирхамах.</p>
-    <form class="form-for-contact">
-      <input type="text" name="name" id="name" required placeholder="Имя" />
-      <input type="tel" name="phone" id="phone"
-        placeholder="+7 (495) 888 00 00" required>
-      <input type="email" name="email" id="email" required placeholder="Почта" />
+    <form v-if="!send" class="form-for-contact" method="POST" @submit.prevent="submit">
+      <input type="text" name="name" id="name" v-model="name" required placeholder="Имя" />
+      <input type="tel" name="phone" id="phone" v-model="phone" placeholder="+7 (495) 888 00 00" required>
+      <input type="email" name="email" id="email" v-model="mail" required placeholder="Почта" />
       <input class="button-sub" type="submit" value="Связаться с нами">
     </form>
+    <h2 v-else class="page-title2 title-bold">Мы свяжемся с Вами в ближайшее время</h2>
   </section>
   <footer>
     <div class="footer-logo">
@@ -181,7 +181,7 @@
           <p>
             <a href="tel:+905063701369">+905063701369</a>
           </p>
-          <p>   <a href="tel:+905445843771">+905445843771</a></p>
+          <p> <a href="tel:+905445843771">+905445843771</a></p>
           <p>
             <a href="mailto:info@proexport.tr">info@proexport.tr</a>
           </p>
@@ -200,8 +200,7 @@
       <div class="social-net">
         <a href="https://wa.me/905445843771?"><img src="/whatsappl.png" alt="whatsApp"></a>
         <a href="https://msngr.link/wc/Halcion"><img src="/WeChat.png" alt="WeChat"></a>
-        <a href="https://signal.me/#eu/MDousj9L_MHGdMykKH0blyXanBS0OIL8d_6PEE7H3hZLIRkPE9ZAMIs3svCUxUXu"><img
-            src="/Signal.png" alt="Signal"></a>
+        <a href="https://signal.me/#eu/MDousj9L_MHGdMykKH0blyXanBS0OIL8d_6PEE7H3hZLIRkPE9ZAMIs3svCUxUXu"><img src="/Signal.png" alt="Signal"></a>
       </div>
     </div>
   </footer>
@@ -221,6 +220,28 @@ useSeoMeta({
   ogImage: 'http://proexport.tr/main-truck.JPEG',
   twitterCard: 'summary_large_image',
 })
+
+const send = ref(false)
+const name = ref ('')
+const phone = ref ('')
+const mail = ref ('')
+
+const submit = async(e:Event) => {
+  e.preventDefault()
+  const data = new FormData()
+  data.append('name', name.value)
+  data.append('phone', phone.value)
+  data.append('mail', mail.value)
+  let response = await fetch('/mail.php', {
+    method: 'POST',
+    body: data
+  })
+  if (response.status == 200) {
+    send.value = true
+    // const postData = await response.json()
+    // console.log(postData)
+  }
+}
 
 onMounted(() => {
   const menu = document.querySelector('.nav-item')

@@ -1,35 +1,35 @@
 <template>
   <nav class="navbar">
-      <div class="logo-desc">
-        <a href="#"><img class="name-company" src="/main-logo.png" alt="proexport"></a>
-        <div class="text-logo">
-          <p>International equipment <br> import/export company</p>
-          <p>More than 15 years working in the interests of Russian companies</p>
-        </div>
-        <div class="num-email-nav">
-          <a href="tel:+905063701369">+905063701369</a>
-          <a href="tel:+905445843771">+905445843771</a>
-          <p>info@proexport.tr</p>
-        </div>
-        <div class="dropdown">
-          <button class="dropbtn">EN</button>
-          <div class="dropdown-content">
-            <a class="lang-ru" href="/">RU</a>
-            <a class="lang-en" href="/en">EN</a>
-            <a class="lang-tr" href="/tr">TR</a>
-          </div>
+    <div class="logo-desc">
+      <a href="#"><img class="name-company" src="/main-logo.png" alt="proexport"></a>
+      <div class="text-logo">
+        <p>International equipment <br> import/export company</p>
+        <p>More than 15 years working in the interests of Russian companies</p>
+      </div>
+      <div class="num-email-nav">
+        <a href="tel:+905063701369">+905063701369</a>
+        <a href="tel:+905445843771">+905445843771</a>
+        <p>info@proexport.tr</p>
+      </div>
+      <div class="dropdown">
+        <button class="dropbtn">EN</button>
+        <div class="dropdown-content">
+          <a class="lang-ru" href="/">RU</a>
+          <a class="lang-en" href="/en">EN</a>
+          <a class="lang-tr" href="/tr">TR</a>
         </div>
       </div>
-      <input id="menu-toggle" type="checkbox" />
-      <label class='menu-button-container' for="menu-toggle">
-        <span class='menu-button'></span>
-      </label>
-      <ul class="nav-item menu">
-        <li><a href="#about_us">About us</a></li>
-        <li> <a href="#provider">Services</a></li>
-        <li> <a href="#contacts">Contacts</a></li>
-        <li> <a href="#contacts">Feedback</a></li>
-      </ul>
+    </div>
+    <input id="menu-toggle" type="checkbox" />
+    <label class='menu-button-container' for="menu-toggle">
+      <span class='menu-button'></span>
+    </label>
+    <ul class="nav-item menu">
+      <li><a href="#about_us">About us</a></li>
+      <li> <a href="#provider">Services</a></li>
+      <li> <a href="#contacts">Contacts</a></li>
+      <li> <a href="#contacts">Feedback</a></li>
+    </ul>
   </nav>
   <section class="main-page">
     <div class="about-company">
@@ -169,13 +169,13 @@
     </h2>
     <p class="grey-discrip">Simple and transparent scheme of work for your business.
       We work in dollars, rubles, euro yuan, dirhams.</p>
-    <form class="form-for-contact">
-      <input type="text" name="name" id="name" required placeholder="Name" />
-      <input type="tel" name="phone" id="phone"
-        placeholder="+7 (495) 888 00 00" required>
-      <input type="email" name="email" id="email" required placeholder="Mail" />
+    <form v-if="!send" class="form-for-contact" method="POST" @submit.prevent="submit">
+      <input type="text" name="name" id="name" v-model="name" required placeholder="Name" />
+      <input type="tel" name="phone" id="phone" v-model="phone" placeholder="+7 (495) 888 00 00" required>
+      <input type="email" name="email" id="email" v-model="mail" required placeholder="Mail" />
       <input class="button-sub" type="submit" value="Contact us">
     </form>
+    <h2 v-else class="page-title2 title-bold">We will contact you as soon as possible</h2>
   </section>
   <footer>
     <div class="footer-logo">
@@ -207,8 +207,7 @@
       <div class="social-net">
         <a href="https://wa.me/905445843771?"><img src="/whatsappl.png" alt="whatsApp"></a>
         <a href="https://msngr.link/wc/Halcion"><img src="/WeChat.png" alt="WeChat"></a>
-        <a href="https://signal.me/#eu/MDousj9L_MHGdMykKH0blyXanBS0OIL8d_6PEE7H3hZLIRkPE9ZAMIs3svCUxUXu"><img
-            src="/Signal.png" alt=""></a>
+        <a href="https://signal.me/#eu/MDousj9L_MHGdMykKH0blyXanBS0OIL8d_6PEE7H3hZLIRkPE9ZAMIs3svCUxUXu"><img src="/Signal.png" alt=""></a>
       </div>
     </div>
   </footer>
@@ -227,6 +226,28 @@ useSeoMeta({
   ogImage: 'http://proexport.tr/main-truck.JPEG',
   twitterCard: 'summary_large_image',
 })
+
+const send = ref(false)
+const name = ref('')
+const phone = ref('')
+const mail = ref('')
+
+const submit = async (e:Event) => {
+  e.preventDefault()
+  const data = new FormData()
+  data.append('name', name.value)
+  data.append('phone', phone.value)
+  data.append('mail', mail.value)
+  let response = await fetch('/mail.php', {
+    method: 'POST',
+    body: data
+  })
+  if (response.status == 200) {
+    send.value = true
+    // const postData = await response.json()
+    // console.log(postData)
+  }
+}
 
 onMounted(() => {
   const menu = document.querySelector('.nav-item')
